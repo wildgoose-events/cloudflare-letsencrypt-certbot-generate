@@ -21,4 +21,4 @@ mkdir -p /opt/cloudflare/
 echo 'dns_cloudflare_api_token = '$CLOUDFLARE_DNS_API_TOKEN > /opt/cloudflare/credentials
 chmod 600 /opt/cloudflare/credentials
 
-certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory --dry-run
+certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory
