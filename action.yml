@@ -1,0 +1,17 @@
+name: 'Cloudflare LetsEncrypt Certbot Action'
+description: 'Generating LetsEncrypt certificate with DNS challenge for domains parked in Cloudflare'
+author: 'Shibly Meeran'
+inputs:
+  cloudflare_dns_api_token:
+    description: 'Cloudflare DNS API token with Zone:DNS:Edit permission'
+  domain_name:
+    description: 'The fully qualified domain name for which certificate is required'
+  email:
+    description: 'Email address (to notify on certificate expiry)'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.cloudflare_dns_api_token }}
+    - ${{ inputs.domain_name }}
+    - ${{ inputs.email }}
