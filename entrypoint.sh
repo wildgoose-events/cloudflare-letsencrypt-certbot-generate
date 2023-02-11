@@ -22,4 +22,4 @@ echo 'dns_cloudflare_api_token = '$CLOUDFLARE_DNS_API_TOKEN > /opt/cloudflare/cr
 chmod 600 /opt/cloudflare/credentials
 
 certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory
-zip -j -r certs.zip letsencrypt/live/$DOMAIN_NAME/
+zip -j -r certs.zip /etc/letsencrypt/live/$DOMAIN_NAME/
