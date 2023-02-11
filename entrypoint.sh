@@ -3,6 +3,7 @@
 CLOUDFLARE_DNS_API_TOKEN=$1
 DOMAIN_NAME=$2
 NOTIFY_EMAIL=$3
+CERTS_FILE_NAME=$4
 
 if [ -z "$CLOUDFLARE_DNS_API_TOKEN" ]; then
     echo "Please configure a valid Cloudflare DNS API Token"
@@ -22,4 +23,4 @@ echo 'dns_cloudflare_api_token = '$CLOUDFLARE_DNS_API_TOKEN > /opt/cloudflare/cr
 chmod 600 /opt/cloudflare/credentials
 
 certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory
-zip -j -r certs.zip /etc/letsencrypt/live/$DOMAIN_NAME/
+zip -j -r $CERTS_FILE_NAME.zip /etc/letsencrypt/live/$DOMAIN_NAME/
