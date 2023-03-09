@@ -1,15 +1,16 @@
-# 🛡️🔐🪪 Cloudflare DNS LetsEncrypt Certificate Generator
+## 🛡️🔐🪪 Cloudflare DNS LetsEncrypt Certificate Generator
 
 GitHub action for generating LetsEncrypt certificate with DNS challenge for domains parked in Cloudflare
 
-## Input
+### Input
 
 * `cloudflare_dns_api_token` - Cloudflare DNS API token with Zone:DNS:Edit permission
 * `domain_name` - The fully qualified domain name for which certificate is required
 * `email` - Email address (to notify on certificate expiry)
 * `certs_file_name` - The name of file in which the generated keys and certificates will be stored (default name - certs)
+* `dry_run` - [true/false] Will only simulate the process using DNS challenge. Will not issue an actual certificate (default - false)
 
-## Usage
+### Usage
 
 ```yaml
 name: Generate LetsEncrypt Certificate
@@ -27,5 +28,6 @@ jobs:
         domain_name: ${{ secrets.DOMAIN_NAME }}
         email: ${{ secrets.EMAIL }}
         certs_file_name: my_certs
+        dry_run: true
 ```
-The generated keys and certificates will be available in `my_certs.zip` file to be consumed by consecutive steps
+The generated keys and certificates will be available in `my_certs.zip` file (if dry_run is set to `false`) to be consumed by consecutive steps
