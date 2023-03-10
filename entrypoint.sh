@@ -26,14 +26,17 @@ mkdir -p /opt/cloudflare/
 echo 'dns_cloudflare_api_token = '$CLOUDFLARE_DNS_API_TOKEN > /opt/cloudflare/credentials
 chmod 600 /opt/cloudflare/credentials
 
+CERTBOT_COMMAND="certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $(echo $DOMAIN_NAME | sed -e 's/,/ -d /g') --server https://acme-v02.api.letsencrypt.org/directory"
+
 if [[ $DRY_RUN == "true" ]]; then
     # Performing a dry run
     echo "Performing a dry run"
-    certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory --dry-run
+    CERTBOT_COMMAND="$CERTBOT_COMMAND --dry-run"
+    echo $CERTBOT_COMMAND | sh
 else
     # Requesting for a certificate
-    echo "Performing a dry run"
-    certbot certonly --non-interactive --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $DOMAIN_NAME --server https://acme-v02.api.letsencrypt.org/directory
+    echo "Requesting for certificates"
+    echo $CERTBOT_COMMAND | sh
     # Compiling certificates and keys to a zip archive
     zip -j -r $CERTS_FILE_NAME.zip /etc/letsencrypt/live/$DOMAIN_NAME/
 fi
