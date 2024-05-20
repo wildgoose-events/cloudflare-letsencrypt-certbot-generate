@@ -26,7 +26,7 @@ mkdir -p /opt/cloudflare/
 echo 'dns_cloudflare_api_token = '$CLOUDFLARE_DNS_API_TOKEN > /opt/cloudflare/credentials
 chmod 600 /opt/cloudflare/credentials
 
-CERTBOT_COMMAND="certbot certonly --non-interactive --cert-name issued_cert --dns-cloudflare --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $(echo $DOMAIN_NAME | sed -e 's/,/ -d /g') --server https://acme-v02.api.letsencrypt.org/directory"
+CERTBOT_COMMAND="certbot certonly --non-interactive --cert-name issued_cert --dns-cloudflare --dns-cloudflare-propagation-seconds 60 --dns-cloudflare-credentials /opt/cloudflare/credentials --agree-tos --email $NOTIFY_EMAIL -d $(echo $DOMAIN_NAME | sed -e 's/,/ -d /g') --server https://acme-v02.api.letsencrypt.org/directory"
 
 if [[ $DRY_RUN == "true" ]]; then
     # Performing a dry run
