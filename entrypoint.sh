@@ -38,5 +38,5 @@ else
     echo "Requesting for certificates"
     echo $CERTBOT_COMMAND | sh
     # Compiling certificates and keys to a zip archive
-    zip -j -r $CERTS_FILE_NAME.zip /etc/letsencrypt/archive/issued_cert/
+    zip -j -r $CERTS_FILE_NAME.zip /etc/letsencrypt/live/issued_cert/
 fi
